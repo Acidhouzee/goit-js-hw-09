@@ -37,7 +37,25 @@ function convertMs(ms) {
 
 function addLeadingZero(value){
     return value.toString().padStart(2, '0');
-  }
+}
+
+function chooseTime() {
+    intervId = setInterval(() => {
+        let time = convertMs(selectedDates[0].getTime() - Date.parse(new Date()));    
+        buildContent(time);
+        if(selectedDates[0].getTime() - Date.parse(new Date()) <=0){  
+            clearInterval(intervId);  
+        }
+    }, 1000); 
+}
+
+function buildContent(currentTime) {
+    daysContent.innerHTML = addLeadingZero(currentTime.days);
+    hoursContent.innerHTML = addLeadingZero(currentTime.hours);
+    minutesContent.innerHTML = addLeadingZero(currentTime.minutes);
+    secondsContent.innerHTML = addLeadingZero(currentTime.seconds);
+}
+
 
 const options = {
     enableTime: true,
@@ -58,21 +76,5 @@ const options = {
     },
 };
 
-function chooseTime() {
-    intervId = setInterval(() => {
-        let time = convertMs(selectedDates[0].getTime() - Date.parse(new Date()));    
-        buildContent(time);
-        if(selectedDates[0].getTime() - Date.parse(new Date()) <=0){  
-            clearInterval(intervId);  
-        }
-    }, 1000); 
-}
-
-function buildContent(currentTime) {
-    daysContent.innerHTML = addLeadingZero(currentTime.days);
-    hoursContent.innerHTML = addLeadingZero(currentTime.hours);
-    minutesContent.innerHTML = addLeadingZero(currentTime.minutes);
-    secondsContent.innerHTML = addLeadingZero(currentTime.seconds);
-}
 
 flatpickr(dateInput, options);
