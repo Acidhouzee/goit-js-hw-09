@@ -53,18 +53,26 @@ const options = {
         }
         start.removeAttribute('disabled');
         start.addEventListener('click', () => {
-            intervId = setInterval(() => {
-                let time = convertMs(selectedDates[0].getTime() - Date.parse(new Date()));
-                daysContent.innerHTML = addLeadingZero(time.days);
-                hoursContent.innerHTML = addLeadingZero(time.hours);
-                minutesContent.innerHTML = addLeadingZero(time.minutes);
-                secondsContent.innerHTML = addLeadingZero(time.seconds);
-                if(selectedDates[0].getTime() - Date.parse(new Date()) <=0){  
-                    clearInterval(intervId);  
-                }
-            }, 1000); 
+            chooseTime();
         });
     },
 };
+
+function chooseTime() {
+    intervId = setInterval(() => {
+        let time = convertMs(selectedDates[0].getTime() - Date.parse(new Date()));    
+        buildContent(time);
+        if(selectedDates[0].getTime() - Date.parse(new Date()) <=0){  
+            clearInterval(intervId);  
+        }
+    }, 1000); 
+}
+
+function buildContent(currentTime) {
+    daysContent.innerHTML = addLeadingZero(currentTime.days);
+    hoursContent.innerHTML = addLeadingZero(currentTime.hours);
+    minutesContent.innerHTML = addLeadingZero(currentTime.minutes);
+    secondsContent.innerHTML = addLeadingZero(currentTime.seconds);
+}
 
 flatpickr(dateInput, options);
