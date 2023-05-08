@@ -39,11 +39,11 @@ function addLeadingZero(value){
     return value.toString().padStart(2, '0');
 }
 
-function chooseTime() {
+function chooseTime(userTime) {
     intervId = setInterval(() => {
-        let time = convertMs(selectedDates[0].getTime() - Date.parse(new Date()));    
+        let time = convertMs(userTime - Date.parse(new Date()));    
         buildContent(time);
-        if(selectedDates[0].getTime() - Date.parse(new Date()) <=0){  
+        if(userTime - Date.parse(new Date()) <=0){  
             clearInterval(intervId);  
         }
     }, 1000); 
@@ -71,7 +71,7 @@ const options = {
         }
         start.removeAttribute('disabled');
         start.addEventListener('click', () => {
-            chooseTime();
+            chooseTime(selectedDates[0].getTime());
         });
     },
 };
